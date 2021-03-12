@@ -1,0 +1,31 @@
+#include<Servo.h> //Servo 라이브러리를 추가
+Servo servo;      //Servo 클래스로 servo객체 생성
+int value = 0;    // 각도를 조절할 변수 value
+char in_data;             // 입력된 데이터를 담을 변수 in_data
+    
+void setup() {
+  servo.attach(6);     //맴버함수인 attach : 핀 설정
+  Serial.begin(9600); //시리얼 모니터 사용 고고
+    servo.write(50); 
+}
+
+void loop() {
+  if(Serial.available())      //시리얼 모니터에 데이터가 입력되면
+  {
+    in_data = Serial.read(); //시리얼모니터로 입력된 데이터 in_data로 저장
+    Serial.println(in_data);
+    if(in_data == '1')        //입력된 데이터가 1이라면
+    {
+      servo.write(180);
+//      for(int a=50; a<=180; a++){
+//      servo.write(a);       //각도를 30도 증가시킨다.
+//      delay(10);
+//      }
+    }
+
+    if(in_data == '0')        //입력된 데이터가 1이라면
+    {
+      servo.write(50);       //각도를 30도 증가시킨다.
+    }  
+  }
+}
